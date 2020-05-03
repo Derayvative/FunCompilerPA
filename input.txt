@@ -1,11 +1,10 @@
-tot = 1000
-sum = fun(num){
-    if (num){
-        return num - sum(num - 1)
+square = fun(x){
+    y = x
+    tot = 0
+    while (y){
+        tot = tot - x
+        y = y - 1
     }
-    else{
-        return 0;
-    }
+    return tot
 }
-print(sum(8))
-
+print(square(5))

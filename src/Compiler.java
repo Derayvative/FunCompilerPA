@@ -240,7 +240,6 @@ public class Compiler {
                     }
                 }
                 System.out.println(tokenization.get(funBodyIn).kind);
-
             }
         }
     }
@@ -256,4 +255,5 @@ public class Compiler {
     public void setTokenization(ArrayList<Token> tokenization) {
         this.tokenization = tokenization;
     }
+
 }
