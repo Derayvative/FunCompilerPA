@@ -221,8 +221,15 @@ public class Parser {
     }
 
     private int statement(int doit) {
-        System.out.println("STate" + peek());
+        System.out.println("STate" + peek() + " " + currentTokenInd);
         switch (peek()) {
+            case ASIS:
+                String hex = tokenization.get(currentTokenInd).varName;
+                if (doit == 1) {
+                    program.append(hex + "\n");
+                }
+                consume();
+                return 1;
             case ID:
                 String ID = getID();
                 if (ID.charAt(0) == '$') {
@@ -410,11 +417,11 @@ public class Parser {
 
     private void pushAToStack() {
         program.append("F51A\n");
-        program.append("2015\n");
+        program.append("2025\n");
     }
 
     private void popStackToB() {
-        program.append("3015\n");
+        program.append("3025\n");
         program.append("F50B\n");
     }
 
@@ -578,19 +585,19 @@ public class Parser {
 
     private void saveCallerSavedRegs() {
         program.append("F517\n");
-        program.append("2015\n");
+        program.append("2025\n");
         program.append("F518\n");
-        program.append("2015\n");
+        program.append("2025\n");
         program.append("F519\n");
-        program.append("2015\n");
+        program.append("2025\n");
     }
 
     private void loadCallerSavedRegs() {
-        program.append("3015\n");
+        program.append("3025\n");
         program.append("F509\n");
-        program.append("3015\n");
+        program.append("3025\n");
         program.append("F508\n");
-        program.append("3015\n");
+        program.append("3025\n");
         program.append("F507\n");
     }
 

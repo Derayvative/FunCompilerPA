@@ -1,6 +1,7 @@
 public class Token {
 
     public enum Kind{
+        ASIS,    //As Is Token - the varName will be set to a hex instruction (e.g. E015) and the token will be included as is
         COMMA,   //Comma
         ELSE,    // else
         EMPTY,

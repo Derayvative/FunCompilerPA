@@ -16,9 +16,9 @@ public class Compiler {
     }
 
     public void tokenize(){
-        BufferedReader reader = null;
+        StringReader reader = null;
         try {
-            reader = new BufferedReader(new FileReader(programFile));
+            reader = buildFileContents(programFile);
             int nxt = 0;
             String currentWord = "";
             int numAdjEquals = 0;
@@ -56,6 +56,10 @@ public class Compiler {
                     else if (currentWord.equals("fun")){
                         //System.out.println("fun");
                         Token t = new Token(Token.Kind.FUN, 0, "FUN");
+                        tokenization.add(t);
+                    }
+                    else if (currentWord.charAt(0) == '$'){
+                        Token t = new Token(Token.Kind.ASIS, 0, "ASIS", currentWord.substring(1));
                         tokenization.add(t);
                     }
                     else{
@@ -135,7 +139,7 @@ public class Compiler {
                 else if (nxtChar == ';'){
                     //System.out.println(";");
                 }
-                if ((nxtChar >= 'a' && nxtChar <= 'z') || (nxtChar >= '0' && nxtChar <= '9' && currentWord.length() >= 1)){
+                if ((nxtChar >= 'a' && nxtChar <= 'z') || (nxtChar >= '0' && nxtChar <= '9' && currentWord.length() >= 1) || (nxtChar == '$' && currentWord.length() == 0)){
                     currentWord = currentWord + nxtChar;
                 }
                 if (((nxtChar >= '0' && nxtChar <= '9') || nxtChar == '_') && currentWord.length() == 0){
@@ -202,6 +206,18 @@ public class Compiler {
         tokenizeFunctionArguments();
     }
 
+    private StringReader buildFileContents(String programFile) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(programFile));
+        StringBuilder newProgram = new StringBuilder();
+        String nxt;
+        newProgram.append(getMultiCoreFunctions());
+        while ((nxt = reader.readLine()) != null){
+            newProgram.append(nxt + "\n");
+        }
+        System.out.println(newProgram.toString());
+        return new StringReader(newProgram.toString());
+    }
+
     public void tokenizeFunctionArguments(){
         for (int i = 0; i < tokenization.size(); i++){
             if (tokenization.get(i).kind == Token.Kind.FUN && tokenization.get(i+1).kind == Token.Kind.LEFT){
@@ -256,4 +272,15 @@ public class Compiler {
         this.tokenization = tokenization;
     }
 
+    private String getMultiCoreFunctions(){
+        //If dollar sign is at the end of a line, it means interpret this line as hex. Don't try to convert it.
+        //Syntax: wake(a,b) - wake core a (mod num cores) at pc b
+        String coreWake = "wake = fun(x,y){\n"
+                + "\t$6708\n" + "}\n";
+        String corePause = "stop = fun(x){\n"
+                + "\t$4710\n}\n";
+        String coreResume = "resume = fun(x){\n"
+                + "\t$4720\n}\n";
+        return (coreWake + corePause + coreResume);
+    }
 }

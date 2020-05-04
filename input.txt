@@ -1,10 +1,9 @@
-square = fun(x){
-    y = x
-    tot = 0
-    while (y){
-        tot = tot - x
-        y = y - 1
+sum = fun(x){
+    if (x == 0){
+        return 0
     }
-    return tot
+    else{
+        return x + sum(x-1)
+    }
 }
-print(square(5))
+print(sum(10))

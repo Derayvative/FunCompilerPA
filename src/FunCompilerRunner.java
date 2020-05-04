@@ -4,7 +4,7 @@ public class FunCompilerRunner {
         Compiler c = new Compiler("input.txt");
         c.tokenize();
         for (int i = 0; i < c.getTokenization().size(); i++){
-            System.out.println(c.getTokenization().get(i).enumString);
+            System.out.println(c.getTokenization().get(i).kind);
         }
         Parser p = new Parser(c.getTokenization(), c.getNextDataSegmentAddress());
         p.writeFunctions();
