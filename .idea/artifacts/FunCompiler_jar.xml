@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="FunCompiler:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/FunCompiler_jar</output-path>
+    <root id="archive" name="FunCompiler.jar">
+      <element id="module-output" name="FunCompiler" />
+    </root>
+  </artifact>
+</component>

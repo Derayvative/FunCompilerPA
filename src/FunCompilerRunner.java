@@ -1,14 +1,23 @@
 public class FunCompilerRunner {
 
     public static void main(String[] args){
-        Compiler c = new Compiler("input.txt");
-        c.tokenize();
-        for (int i = 0; i < c.getTokenization().size(); i++){
-            System.out.println(c.getTokenization().get(i).kind);
+        if (args == null || args.length == 0){
+            System.err.println("Need .txt file as first argument");
+            System.exit(0);
         }
-        Parser p = new Parser(c.getTokenization(), c.getNextDataSegmentAddress());
+        String file = args[0];
+        if (!file.matches(".*\\.txt")){
+            System.err.println("Need .txt file");
+            System.exit(0);
+        }
+        if (args.length >= 2){
+            Constants.stackSize = Integer.parseInt(args[1]);
+        }
+        Tokenizer c = new Tokenizer(file);
+        c.tokenize();
+        HexGenerator p = new HexGenerator(c.getTokenization(), c.getNextDataSegmentAddress());
         p.writeFunctions();
         p.parse();
-        p.writeProgram("output.hex");
+        p.writeProgram(file.substring(0, file.length() - 4) + ".hex");
     }
 }

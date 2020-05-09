@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FunCompiiler.iml" filepath="$PROJECT_DIR$/FunCompiiler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FunCompiler.iml" filepath="$PROJECT_DIR$/FunCompiler.iml" />
     </modules>
   </component>
 </project>

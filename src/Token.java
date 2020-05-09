@@ -22,6 +22,7 @@ public class Token {
         RBRACE,  // }
         RET,     // return
         RIGHT,   // )
+        SYNC,    //synchronized
         SEMI,    // ;
         WHILE    // while
     }
@@ -31,12 +32,13 @@ public class Token {
     public String varName;
     public int start;
     public String enumString;
-    int tailRecurse;
+    public boolean isFunSync;
 
     public Token(Kind kind, int value, String enumString) {
         this.kind = kind;
         this.value = value;
         this.enumString = enumString;
+        this.isFunSync = false;
     }
 
     public Token(Kind kind, int value, String enumString, String varName) {
@@ -44,5 +46,6 @@ public class Token {
         this.value = value;
         this.enumString = enumString;
         this.varName = varName;
+        this.isFunSync = false;
     }
 }
